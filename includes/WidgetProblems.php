@@ -79,15 +79,12 @@ class WidgetProblems extends CTableInfo {
 			($this->data['sortfield'] === 'host')
 				? [_x('Host', 'compact table header'), $sort_div]
 				: _x('Host', 'compact table header'),
-			[
-				($this->data['sortfield'] === 'name')
-					? [_x('Problem', 'compact table header'), $sort_div]
-					: _x('Problem', 'compact table header'),
-				' ', BULLET(), ' ',
-				($this->data['sortfield'] === 'severity')
-					? [_x('Severity', 'compact table header'), $sort_div]
-					: _x('Severity', 'compact table header')
-			],
+			($this->data['sortfield'] === 'name')
+				? [_x('Problem', 'compact table header'), $sort_div]
+				: _x('Problem', 'compact table header'),
+			($this->data['sortfield'] === 'severity')
+				? [_x('Severity', 'compact table header'), $sort_div]
+				: _x('Severity', 'compact table header'),
 			($this->data['fields']['show_opdata'] == OPERATIONAL_DATA_SHOW_SEPARATELY)
 				? _x('Operational data', 'compact table header')
 				: null,
@@ -343,10 +340,11 @@ class WidgetProblems extends CTableInfo {
 			}
 
 			$description = (new CCol($problem_link))->addClass(ZBX_STYLE_WORDBREAK);
-			$description_style = CSeverityHelper::getStyle((int) $problem['severity']);
+			$severity = (new CCol(CSeverityHelper::getStyle($problem['severity'])))->addClass(ZBX_STYLE_NOWRAP);
+			$severity_style = CSeverityHelper::getStyle((int) $problem['severity']);
 
 			if ($value == TRIGGER_VALUE_TRUE) {
-				$description->addClass($description_style);
+				$severity->addClass($severity_style);
 			}
 
 			if (!$data['show_recovery_data']
@@ -471,6 +469,7 @@ class WidgetProblems extends CTableInfo {
 					makeInformationList($info_icons),
 					$data['triggers_hosts'][$trigger['triggerid']],
 					$description,
+					$severity,
 					($data['fields']['show_opdata'] == OPERATIONAL_DATA_SHOW_SEPARATELY)
 						? $opdata->addClass(ZBX_STYLE_WORDBREAK)
 						: null,
