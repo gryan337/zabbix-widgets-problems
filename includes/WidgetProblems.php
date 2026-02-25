@@ -340,7 +340,7 @@ class WidgetProblems extends CTableInfo {
 			}
 
 			$description = (new CCol($problem_link))->addClass(ZBX_STYLE_WORDBREAK);
-			$severity = (new CCol(CSeverityHelper::getStyle($problem['severity'])))->addClass(ZBX_STYLE_NOWRAP);
+			$severity = (new CCol(CSeverityHelper::getName($problem['severity'])))->addClass(ZBX_STYLE_NOWRAP);
 			$severity_style = CSeverityHelper::getStyle((int) $problem['severity']);
 
 			if ($value == TRIGGER_VALUE_TRUE) {
