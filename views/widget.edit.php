@@ -69,8 +69,9 @@ $form
 	->addField(
 		new CWidgetFieldCheckBoxView($data['fields']['show_timeline'])
 	)
-	->addField(
-		(new CWidgetFieldCheckBoxView($data['fields']['highlight_row']))->addRowClass(ZBX_STYLE_FILTER_HIGHLIGHT_ROW_CB)
+	->addField(array_key_exists('highlight_row', $data['fields'])
+		? (new CWidgetFieldCheckBoxView($data['fields']['highlight_row']))->addRowClass(ZBX_STYLE_FILTER_HIGHLIGHT_ROW_CB)
+		: null
 	)
 	->addField(
 		new CWidgetFieldIntegerBoxView($data['fields']['show_lines'])
