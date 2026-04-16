@@ -488,7 +488,9 @@ class WidgetProblems extends CTableInfo {
 					$problem_update_link,
 					makeEventActionsIcons($problem['eventid'], $data['actions'], $data['users'], $is_acknowledged),
 					$data['fields']['show_tags']
-						? (new CDiv($data['tags'][$problem['eventid']] ))->addClass(ZBX_STYLE_TAGS_WRAPPER)
+						? defined('ZBX_STYLE_TAGS_WRAPPER')
+							? (new CDiv($data['tags'][$problem['eventid']] ))->addClass(ZBX_STYLE_TAGS_WRAPPER)
+							: $data['tags'][$problem['eventid']]
 						: null
 				])
 				->setAttribute('data-eventid', $problem['eventid']);
